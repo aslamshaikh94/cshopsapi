@@ -1,5 +1,6 @@
 let express = require('express');
 let connection = require('../config/database');
+require('dotenv').config();
 let SECRETKEY = process.env.SECRET_KEY;
 
 const ensureToken = require('../middleware/auth');
