@@ -3,6 +3,8 @@ const path = require('path');
 require('dotenv').config();
 const app = express();
 
+const PORT = process.env.PORT || 8080
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
@@ -29,7 +31,14 @@ app.use("/addto", addto);
 app.use("/myprofile", myprofile);
 app.use("/orders", orders);
 
-let port = process.env.APP_PORT
-app.listen(port, ()=>{
-  console.log("server is runing " + port)
-});
+// let port = process.env.APP_PORT
+// app.listen(port, ()=>{
+//   console.log("server is runing " + port)
+// });
+
+
+
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .get('/', (req, res) => res.render('index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
