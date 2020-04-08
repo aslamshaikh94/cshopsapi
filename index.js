@@ -10,7 +10,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-// var userauth = require('./routes/auth');
+var userauth = require('./routes/auth');
 // var product = require('./routes/product');
 // var enquiry = require('./routes/enquiry');
 // var users = require('./routes/users');
