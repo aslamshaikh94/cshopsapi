@@ -1,6 +1,5 @@
 const express = require('express');
 const connection = require('../config/database');
-require('dotenv').config();
 const ensureToken = require('../middleware/auth');
 let app = express();
 
