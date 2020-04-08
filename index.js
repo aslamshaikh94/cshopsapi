@@ -1,10 +1,39 @@
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+let express = require('express');
+const path = require('path');
+const app = express();
+
+const PORT = process.env.PORT || 8080
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-auth-token");
+    next();
+});
+
+var userauth = require('./routes/auth');
+var product = require('./routes/product');
+var enquiry = require('./routes/enquiry');
+var users = require('./routes/users');
+var addto = require('./routes/addto');
+var myprofile = require('./routes/myprofile');
+var orders = require('./routes/orders');
+
+app.use("/auth", userauth);
+app.use("/users", users);
+app.use("/product", product);
+app.use("/enquiry", enquiry);
+app.use("/addto", addto);
+app.use("/myprofile", myprofile);
+app.use("/orders", orders);
+
+// let port = process.env.APP_PORT
+// app.listen(port, ()=>{
+//   console.log("server is runing " + port)
+// });
+
+
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
+  .get('/', (req, res) => res.render('index'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
