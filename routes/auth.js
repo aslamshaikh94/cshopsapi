@@ -1,5 +1,5 @@
 let express = require('express');
-let connection = require('../config/database');
+let connection = '';
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const exjwt = require('express-jwt');
