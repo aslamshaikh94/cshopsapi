@@ -9,13 +9,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
-
-
 
 let PORT = process.env.APP_PORT || 5000
-app.listen(PORT, ()=>{
-  console.log("server is runing " + PORT)
-});
+
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .get('/', (req, res) => res.render('index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
