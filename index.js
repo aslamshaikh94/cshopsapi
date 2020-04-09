@@ -11,7 +11,7 @@ app.use(function(req, res, next) {
 
 
 // var userauth = require('./routes/auth');
-// var users = require('./routes/users');
+var users = require('./routes/users');
 // var product = require('./routes/product');
 // var enquiry = require('./routes/enquiry');
 // var addto = require('./routes/addto');
@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 // var orders = require('./routes/orders');
 
 // app.use("/auth", userauth);
-// app.use("/users", users);
+app.use("/users", users);
 // app.use("/product", product);
 // app.use("/enquiry", enquiry);
 // app.use("/addto", addto);
