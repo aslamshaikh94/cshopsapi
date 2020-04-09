@@ -8,7 +8,12 @@ app.use(express.json());
 
 app.get('/', (req, res, next)=>{
 	connection.query('SELECT * FROM users', (err, result, fields)=>{
-		res.json(result)
+		if(err){
+      res.status("Error", err)
+    }
+    else{
+      res.json(result)
+    }
 	})
 });
 
@@ -17,7 +22,12 @@ app.get('/manufacturers', (req, res, next)=>{
              FROM users 
              WHERE usertype ='manufacturer'`
   connection.query(sql, (err, result, fields)=>{    
-    res.json(result)
+    if(err){
+      res.status("Error", err)
+    }
+    else{
+      res.json(result)
+    }
   })
 });
 
@@ -26,7 +36,12 @@ app.get('/requests', ensureToken, (req, res, next)=>{
              JOIN requests ON users.id = requests.request_id 
              AND user_id = ? AND status="0" `
   connection.query(sql, req.user.id, (err, result, fields)=>{    
-    res.json(result)    
+    if(err){
+      res.status("Error", err)
+    }
+    else{
+      res.json(result)
+    }    
   })
 });
 
@@ -36,7 +51,12 @@ app.get('/vender_requests', ensureToken, (req, res, next)=>{
              AND user_id = '${req.user.id}' AND status!=1
             `
   connection.query(sql, (err, result, fields)=>{
-    res.json(result)
+    if(err){
+      res.status("Error", err)
+    }
+    else{
+      res.json(result)
+    }
   })
 });
 app.get('/venders', ensureToken, (req, res, next)=>{
@@ -45,7 +65,12 @@ app.get('/venders', ensureToken, (req, res, next)=>{
              AND user_id=${req.user.id} AND status=1
             `
   connection.query(sql, (err, result, fields)=>{
-    res.json(result)
+    if(err){
+      res.status("Error", err)
+    }
+    else{
+      res.json(result)
+    }
   })
 });
 
@@ -64,7 +89,12 @@ app.post('/vender_request/:id', ensureToken, (req, res, next)=>{
     }
     else{
       connection.query('INSERT INTO requests SET ?',  request , (err, result, fields)=>{    
-        res.json(result)
+        if(err){
+          res.status("Error", err)
+        }
+        else{
+          res.json(result)
+        }
       })      
     }
   })
