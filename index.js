@@ -13,21 +13,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
-var userauth = require('./routes/auth');
-var product = require('./routes/product');
-var enquiry = require('./routes/enquiry');
-var users = require('./routes/users');
-var addto = require('./routes/addto');
-var myprofile = require('./routes/myprofile');
-var orders = require('./routes/orders');
 
-app.use("/auth", userauth);
-app.use("/users", users);
-app.use("/product", product);
-app.use("/enquiry", enquiry);
-app.use("/addto", addto);
-app.use("/myprofile", myprofile);
-app.use("/orders", orders);
 
 let port = process.env.APP_PORT || 5000
 app.listen(port, ()=>{
