@@ -1,5 +1,7 @@
 let express = require('express');
 let connection = require('../config/database');
+require('dotenv').config();
+
 const ensureToken = require('../middleware/auth');
 let app = express()
 
@@ -8,12 +10,7 @@ app.use(express.json());
 
 app.get('/', (req, res, next)=>{
 	connection.query('SELECT * FROM users', (err, result, fields)=>{
-		if(err){
-      res.status("Error", err)
-    }
-    else{
-      res.json(result)
-    }
+		res.json(result)
 	})
 });
 
@@ -41,7 +38,7 @@ app.get('/requests', ensureToken, (req, res, next)=>{
     }
     else{
       res.json(result)
-    }    
+    }  
   })
 });
 
@@ -117,7 +114,12 @@ app.post('/vender_request/action/:id', ensureToken, (req, res, next)=>{
 
 app.get('/user', ensureToken, (req, res, next)=>{
   connection.query('SELECT id,fname,lname,usertype,username,email,address,verified FROM users WHERE id=?', req.user.id, (err, result, fields)=>{
-    res.json(result)
+    if(err){
+      res.status("Error", err)
+    }
+    else{
+      res.json(result)
+    }
   })
 });
 

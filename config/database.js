@@ -2,12 +2,11 @@ var mysql = require('mysql');
 require('dotenv').config();
 let db = process.env
 var connection = mysql.createConnection({
-  host     : process.env.MYSQL_ADDON_HOST,
-  database : process.env.MYSQL_ADDON_DB,
-  user     : process.env.MYSQL_ADDON_USER,
-  password : process.env.MYSQL_ADDON_PASSWORD
+  host: db.HOST,
+  user: db.USER,
+  password: db.PASSWORD,
+  database: db.DATABASE
 });
-
 
 
 connection.connect(function(err) {
@@ -15,10 +14,10 @@ connection.connect(function(err) {
   console.log("Connected!");
 
   // Create Database if not exists
-  // connection.query("CREATE DATABASE IF NOT EXISTS cshops", function (err, result) {
-  //   if (err) throw err;
-  //   console.log("Database created");
-  // });
+  connection.query("CREATE DATABASE IF NOT EXISTS cshops", function (err, result) {
+    if (err) throw err;
+    console.log("Database created");
+  });
   
   // Create column for signup users
   let users = `CREATE TABLE IF NOT EXISTS users 

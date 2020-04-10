@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
       cb(null,file.fieldname  + Date.now() + path.extname(file.originalname));
    }
 });
-let upload = multer({ storage: storage, limits:{fileSize: 10000000} })
+let upload = multer({ storage: storage, limits:{fileSize: 100000000} })
 
 app.post('/photos', upload.single('productImage'), function (req, res, next) {
 	let fileData = {		
