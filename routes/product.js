@@ -1,5 +1,4 @@
 let express = require('express');
-var multer  = require('multer')
 const path = require("path");
 let app = express();
 let connection = require('../config/database');
@@ -7,23 +6,6 @@ const ensureToken = require('../middleware/auth');
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json({ limit: '10mb' }));
-
-
-const storage = multer.diskStorage({
-   destination: "../public/uploads/",
-   filename: function(req, file, cb){   		
-      cb(null,file.fieldname  + Date.now() + path.extname(file.originalname));
-   }
-});
-let upload = multer({ storage: storage, limits:{fileSize: 100000000} })
-
-app.post('/photos', upload.single('productImage'), function (req, res, next) {
-	let fileData = {		
-		originalname: req.file.originalname,
-		filename: req.file.filename,
-	}
-  res.send(fileData)
-});
 
 app.post('/add', ensureToken, (req, res)=>{	
 	let product = {
@@ -47,7 +29,7 @@ app.post('/add', ensureToken, (req, res)=>{
 		if(err){
 			res.json({
             status:false,
-            message:'there are some error with query'
+            message:'there are some server error'
         })
 		}
 		else{

@@ -1,14 +1,6 @@
 var mysql = require('mysql');
-const db = require('./environment');
 
-
-// var connection = mysql.createConnection({
-//   host: db.HOST,
-//   user: db.USER,
-//   password: db.PASSWORD,
-//   database: db.DATABASE
-// });
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host     : process.env.MYSQL_ADDON_HOST,
     database : process.env.MYSQL_ADDON_DB,
     user     : process.env.MYSQL_ADDON_USER,
