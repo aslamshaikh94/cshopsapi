@@ -2,23 +2,28 @@ var mysql = require('mysql');
 const db = require('./environment');
 
 
+// var connection = mysql.createConnection({
+//   host: db.HOST,
+//   user: db.USER,
+//   password: db.PASSWORD,
+//   database: db.DATABASE
+// });
 var connection = mysql.createConnection({
-  host: db.HOST,
-  user: db.USER,
-  password: db.PASSWORD,
-  database: db.DATABASE
+    host     : process.env.MYSQL_ADDON_HOST,
+    database : process.env.MYSQL_ADDON_DB,
+    user     : process.env.MYSQL_ADDON_USER,
+    password : process.env.MYSQL_ADDON_PASSWORD
 });
-
 
 connection.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 
   // Create Database if not exists
-  connection.query("CREATE DATABASE IF NOT EXISTS cshops", function (err, result) {
-    if (err) throw err;
-    console.log("Database created");
-  });
+  // connection.query("CREATE DATABASE IF NOT EXISTS cshops", function (err, result) {
+  //   if (err) throw err;
+  //   console.log("Database created");
+  // });
   
   // Create column for signup users
   let users = `CREATE TABLE IF NOT EXISTS users 
