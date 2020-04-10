@@ -13,10 +13,10 @@ if(DEV==true){
 }
 else{
 	db = {
-			HOST     : env.MYSQL_ADDON_HOST,
-    	DATABASE : env.MYSQL_ADDON_DB,
-    	USER     : env.MYSQL_ADDON_USER,
-    	PASSWORD : env.MYSQL_ADDON_PASSWORD
+			HOST     : process.env.MYSQL_ADDON_HOST,
+    	DATABASE : process.env.MYSQL_ADDON_DB,
+    	USER     : process.env.MYSQL_ADDON_USER,
+    	PASSWORD : process.env.MYSQL_ADDON_PASSWORD
 		}
 }
 
