@@ -6,16 +6,16 @@ let DEV = false
 if(DEV==true){
 	db = {
 			HOST: env.HOST,
-		  USER: env.USER,
+		  DATABASE: env.DATABASE,
 		  PASSWORD: env.PASSWORD,
-		  DATABASE: env.DATABASE
+		  USER: env.USER
 		}	
 }
-else if(DEV==false){
+else{
 	db = {
 			HOST     : env.MYSQL_ADDON_HOST,
     	DATABASE : env.MYSQL_ADDON_DB,
-    	HOST     : env.MYSQL_ADDON_USER,
+    	USER     : env.MYSQL_ADDON_USER,
     	PASSWORD : env.MYSQL_ADDON_PASSWORD
 		}
 }
