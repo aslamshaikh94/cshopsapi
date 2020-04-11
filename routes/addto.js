@@ -15,13 +15,27 @@ app.post('/', ensureToken, (req, res)=>{
     product_id:req.body.product_id,
     type:req.body.type
   }
+
   let sql = `INSERT INTO favorite_cart_products SET ?`
-  connection.query(sql, favorites, (err, result)=>{
-    if(err){
-      res.json({status:false, message:err})
+  let sqlselect = `SELECT * FROM favorite_cart_products WHERE user_id=${req.user.id} 
+                   AND product_id=${req.body.product_id}
+                   AND type='${req.body.type}' `
+  connection.query(sqlselect, (err, result)=>{    
+    if(result && result.length>0){
+      res.json({
+        status:false,
+        message:'Product already added'
+      })
     }
     else{
-      res.json({status:true})
+      connection.query(sql, favorites, (err, result)=>{
+        if(err){
+          res.json({status:false, message:err})
+        }
+        else{
+          res.json({status:true})
+        }
+      })      
     }
   })
 });
