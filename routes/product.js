@@ -39,7 +39,7 @@ app.post('/add', ensureToken, (req, res)=>{
 });
 
 app.get('/products', (req, res, next)=>{
-	let sql = 'SELECT * FROM products LIMIT 24'
+	let sql = 'SELECT * FROM products order by created_at desc LIMIT 24'
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)
@@ -53,7 +53,7 @@ app.get('/products', (req, res, next)=>{
 
 
 app.get('/admin/products', ensureToken, (req, res, next)=>{	
-	let sql =`SELECT * FROM products WHERE seller_id ='${req.user.id}'`
+	let sql =`SELECT * FROM products WHERE seller_id ='${req.user.id}' order by created_at desc`
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)

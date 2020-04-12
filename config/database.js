@@ -111,7 +111,7 @@ connection.connect(function(err) {
                   (id INT AUTO_INCREMENT PRIMARY KEY, 
                   user_id INT(255), 
                   request_id INT(255), 
-                  status BOOLEAN, 
+                  status BOOLEAN NOT NULL DEFAULT 0, 
                   created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(requests, function (err, result) {
     if (err) throw err;

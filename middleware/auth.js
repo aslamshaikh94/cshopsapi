@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 let SECRETKEY = process.env.SECRET_KEY
 
 module.exports = (req, res, next)=>{
-  const token = req.header('x-auth-token');
+  const token = req.header('auth-token');
   // console.log(token)  
   // Check for token
   if (!token) return res.json({status:false, message: 'No token, authorizaton denied' });
