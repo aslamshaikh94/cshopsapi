@@ -58,7 +58,6 @@ app.post('/signup', (req, res, next)=>{
 
 app.post('/login', (req, res, next)=>{
   let {username, password} =  req.body;
-
   let sql = `SELECT * FROM users WHERE username='${username}'`;
 
   connection.query(sql, (error, result, fields)=>{
@@ -84,7 +83,7 @@ app.post('/login', (req, res, next)=>{
       });      
     } 
     else{
-      res.json({status:false, message:'username did not match'})
+      res.json({status:false, message:'Username or Password did not match'})
     }
   });
 });

@@ -13,6 +13,6 @@ module.exports = (req, res, next)=>{
     req.user = decoded;
     next();
   } catch (e) {    
-    res.json({status:false, message: 'Token is not valid' });
+    res.json({status:false, message: 'Please Login First' });
   }
 };

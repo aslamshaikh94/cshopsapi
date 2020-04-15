@@ -66,7 +66,7 @@ app.get('/admin/products', ensureToken, (req, res, next)=>{
 
 
 app.get('/', function (req, res) {
-	let sql = `SELECT * FROM products WHERE ${req.query.field} LIKE '%${req.query.search}%' `
+	let sql = `SELECT * FROM products WHERE ${req.query.field} LIKE '%${req.query.search}%' order by created_at desc`
   connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)			
@@ -78,7 +78,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/filters', function (req, res) {		
-	let sql = `SELECT * FROM products WHERE ${req.query.field}='${req.query.search}' `
+	let sql = `SELECT * FROM products WHERE ${req.query.field}='${req.query.search}' order by created_at desc`
   connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)			
