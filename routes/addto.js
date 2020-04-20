@@ -53,9 +53,11 @@ app.get('/', ensureToken, (req, res)=>{
 })
 
 app.get('/wishlist', ensureToken, (req, res, next)=>{
-  let sql = `SELECT products.id AS product_id, 
-                    favorite_cart_products.id AS addto_id, 
-                    product_name, selling_price, photos 
+  let sql = `SELECT favorite_cart_products.id AS id, 
+                    products.id AS product_id,                     
+                    product_name, selling_price, 
+                    photos,
+                    minorder
              FROM products
              LEFT JOIN favorite_cart_products ON products.id = favorite_cart_products.product_id
              AND favorite_cart_products.type='${req.query.type}'
