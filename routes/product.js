@@ -7,7 +7,7 @@ const ensureToken = require('../middleware/auth');
 app.use(express.urlencoded({extended:true}));
 app.use(express.json({ limit: '10mb' }));
 
-app.post('/add', ensureToken, (req, res)=>{	
+app.post('/add', ensureToken, (req, res)=>{		
 	let product = {
 		seller_id:req.user.id,
 		categories:req.body.categories,
@@ -23,8 +23,40 @@ app.post('/add', ensureToken, (req, res)=>{
 		details:req.body.details,
 		terms_conditions:req.body.terms_conditions,
 		photos:req.body.photos,
+		thumbnail:req.body.thumbnail,
 	}
 	let sql = 'INSERT INTO products SET ?'
+	connection.query(sql, product, (err, result, fields)=>{		
+		if(err){
+			res.json({
+            status:false,
+            message:'there are some server error'
+        })
+		}
+		else{
+			res.send(result)
+		}
+	})
+});
+
+app.post('/update', ensureToken, (req, res)=>{
+	let product = {
+		categories:req.body.categories,
+		type:req.body.type,
+		product_name:req.body.product_name,	
+		purchase_price:req.body.purchase_price,
+		selling_price:req.body.selling_price,
+		venders_price:req.body.venders_price,
+		stock:req.body.stock,
+		minorder:req.body.minorder,
+		warranty:req.body.warranty,
+		extra_fields:req.body.extra_fields,
+		details:req.body.details,
+		terms_conditions:req.body.terms_conditions,
+		photos:req.body.photos,
+		thumbnail:req.body.thumbnail,
+	}
+	let sql = `UPDATE products SET ? WHERE id=${req.body.id}`
 	connection.query(sql, product, (err, result, fields)=>{
 		if(err){
 			res.json({
@@ -39,7 +71,7 @@ app.post('/add', ensureToken, (req, res)=>{
 });
 
 app.get('/products', (req, res, next)=>{
-	let sql = 'SELECT * FROM products order by created_at desc LIMIT 24'
+	let sql = `SELECT * FROM products order by created_at desc LIMIT 24`
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)

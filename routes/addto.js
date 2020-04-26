@@ -40,7 +40,7 @@ app.post('/', ensureToken, (req, res)=>{
   })
 });
 
-app.get('/', ensureToken, (req, res)=>{ 
+app.get('/', ensureToken, (req, res)=>{   
   let sql = `SELECT * FROM favorite_cart_products WHERE user_id=${req.user.id}`
   connection.query(sql, (err, result)=>{
     if(err){
@@ -53,10 +53,13 @@ app.get('/', ensureToken, (req, res)=>{
 })
 
 app.get('/wishlist', ensureToken, (req, res, next)=>{
+  let price = req.user.usertype==='supplier'? 'venders_price' : 'selling_price';  
   let sql = `SELECT favorite_cart_products.id AS id, 
-                    products.id AS product_id,                     
-                    product_name, selling_price, 
-                    photos,
+                    products.id AS product_id,
+                    seller_id,                     
+                    product_name, 
+                    ${price} AS price,
+                    thumbnail,
                     minorder
              FROM products
              LEFT JOIN favorite_cart_products ON products.id = favorite_cart_products.product_id

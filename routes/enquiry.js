@@ -50,7 +50,8 @@ app.post(`/reply`, ensureToken, (req, res)=>{
 });
 
 app.get('/', ensureToken, (req, res)=>{
-	let sql =`SELECT * FROM enquiries WHERE seller_id=${req.user.id}`
+	let enquiryType = req.user.usertype==="buyer"? 'user_id' : 'seller_id';
+	let sql =`SELECT * FROM enquiries WHERE ${enquiryType}=${req.user.id}`
 	connection.query(sql, (err, result, fields)=>{		
 		if(err){
 			res.json({

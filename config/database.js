@@ -81,6 +81,7 @@ connection.connect(function(err) {
                    details LONGTEXT,
                    terms_conditions TEXT,
                    photos LONGTEXT,
+                   thumbnail LONGTEXT,
                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(products, function (err, result) {
     if (err) throw err;
@@ -123,9 +124,11 @@ connection.connect(function(err) {
                   (id INT AUTO_INCREMENT PRIMARY KEY, 
                   user_id INT(255),
                   product_id INT(255),
+                  seller_id INT(255),
                   product_name VARCHAR(255),
                   quantity INT(255),
                   price INT(255),
+                  status VARCHAR(255) NOT NULL DEFAULT 'pending',
                   created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(orders, function (err, result) {
     if (err) throw err;

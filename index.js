@@ -22,6 +22,7 @@ var enquiry = require('./routes/enquiry');
 var addto = require('./routes/addto');
 var myprofile = require('./routes/myprofile');
 var orders = require('./routes/orders');
+var upload = require('./routes/upload');
 
 app.use("/auth", userauth);
 app.use("/users", users);
@@ -30,6 +31,7 @@ app.use("/enquiry", enquiry);
 app.use("/addto", addto);
 app.use("/myprofile", myprofile);
 app.use("/orders", orders);
+app.use("/upload", upload);
 
 let PORT = process.env.APP_PORT
 app.listen(PORT, ()=>{

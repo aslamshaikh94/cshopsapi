@@ -62,14 +62,15 @@ app.post('/login', (req, res, next)=>{
 
   connection.query(sql, (error, result, fields)=>{
     if(result.length > 0){
-      let {id} = result[0]  
+      let {id, usertype} = result[0]      
       bcrypt.compare(password, result[0].password, function(err, bcryptresult) {                  
           if (bcryptresult === true) {
-            let token = jwt.sign({ id: id }, SECRETKEY, /*{ expiresIn: 3600 },*/ (err, token)=>{
+            let token = jwt.sign({id, usertype}, SECRETKEY, /*{ expiresIn: 3600 },*/ (err, token)=>{
               if(err) res.json({error:err})
               res.json({
                 status:true,
-                id:id,
+                id,
+                usertype,
                 token
               });                
             });
@@ -86,10 +87,6 @@ app.post('/login', (req, res, next)=>{
       res.json({status:false, message:'Username or Password did not match'})
     }
   });
-});
-
-const jwtMW = exjwt({
-  secret: 'keyboard cat 4 ever'
 });
 
 
