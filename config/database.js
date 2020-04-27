@@ -28,7 +28,7 @@ connection.connect(function(err) {
                password VARCHAR(255), 
                address VARCHAR(255), 
                verified BOOLEAN, 
-               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`;
+               created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(users, function (err, result) {
     if (err) throw err;
     console.log("Users Table created");
@@ -46,7 +46,7 @@ connection.connect(function(err) {
                states VARCHAR(255), 
                cities VARCHAR(255), 
                address VARCHAR(255),               
-               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`;
+               created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(contact_info, function (err, result) {
     if (err) throw err;
     console.log("Users Table created");
@@ -58,7 +58,7 @@ connection.connect(function(err) {
                             user_id INT(255),
                             product_id INT(255),
                             type VARCHAR(20),
-                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`;
+                            created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(favorite_cart_products, (err, result)=>{
     if (err) throw err;
     console.log("Products Table favorite_cart_products");
@@ -82,7 +82,7 @@ connection.connect(function(err) {
                    terms_conditions TEXT,
                    photos LONGTEXT,
                    thumbnail LONGTEXT,
-                   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`;
+                   created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(products, function (err, result) {
     if (err) throw err;
     console.log("Products Table created");
@@ -101,7 +101,7 @@ connection.connect(function(err) {
                    message VARCHAR(255), 
                    reply_message VARCHAR(255),
                    quantity INT(100), 
-                   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`
+                   created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`
   connection.query(enquiries, function (err, result) {
     if (err) throw err;
     console.log("enquiries Table created");
@@ -113,7 +113,7 @@ connection.connect(function(err) {
                   user_id INT(255), 
                   request_id INT(255), 
                   status BOOLEAN NOT NULL DEFAULT 0, 
-                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`;
+                  created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(requests, function (err, result) {
     if (err) throw err;
     console.log("requests Table created");
@@ -129,7 +129,7 @@ connection.connect(function(err) {
                   quantity INT(255),
                   price INT(255),
                   status VARCHAR(255) NOT NULL DEFAULT 'pending',
-                  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP )`;
+                  created_at DATETIME DEFAULT CURRENT_TIMESTAMP )`;
   connection.query(orders, function (err, result) {
     if (err) throw err;
     console.log("orders Table created");
