@@ -42,7 +42,7 @@ app.post('/', ensureToken, (req, res)=>{
 
 });
 
-app.put('/', (req, res)=>{    
+app.put('/', (req, res)=>{
   let sqlOrders = `UPDATE orders SET status='accepted' WHERE id=${req.body.id}`
   let sql = `UPDATE products SET stock = stock-${req.body.quantity} WHERE id=${req.body.product_id}`
   connection.query(sql, (err, result, fields)=>{

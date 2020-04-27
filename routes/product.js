@@ -25,6 +25,7 @@ app.post('/add', ensureToken, (req, res)=>{
 		photos:req.body.photos,
 		thumbnail:req.body.thumbnail,
 	}
+	
 	let sql = 'INSERT INTO products SET ?'
 	connection.query(sql, product, (err, result, fields)=>{		
 		if(err){
