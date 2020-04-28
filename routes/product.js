@@ -124,15 +124,17 @@ app.get('/filters', function (req, res) {
 
 
 
-app.get('/:id', (req, res, next)=>{
+app.get('/:id', (req, res, next)=>{	
 	let sql = `SELECT products.id, products.categories, products.created_at, products.details, 
 										products.extra_fields, products.minorder, products.photos, 
 										products.product_name, products.seller_id, products.selling_price, 
 										products.stock, products.terms_conditions, products.type, 
-										products.warranty, contact_info.phone  
+										products.warranty, contact_info.phone
 						FROM products 
 						INNER JOIN contact_info ON products.seller_id=contact_info.user_id
+						WHERE products.id=${req.params.id}
 						 `
+						
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.send("Error", err)

@@ -125,7 +125,7 @@ app.delete('/vender_request/action/:id', ensureToken, (req, res, next)=>{
   })
 })
 
-app.get('/user', ensureToken, (req, res, next)=>{
+app.get('/user', ensureToken, (req, res, next)=>{  
   connection.query('SELECT id,fname,lname,usertype,username,email,address,verified FROM users WHERE id=?', req.user.id, (err, result, fields)=>{
     if(err){
       res.status("Error", err)
