@@ -12,12 +12,10 @@ connection.connect(function(err) {
   console.log("Connected!");
 
   // Create Database if not exists
-  let sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
-  connection.query(sql_mode, function (err, result) {
-    if (err) throw err;
-    console.log("ONLY_FULL_GROUP_BY");
-  });
+  // connection.query("CREATE DATABASE IF NOT EXISTS cshops", function (err, result) {
+  //   if (err) throw err;
+  //   console.log("Database created");
+  // });
   
   // Create column for signup users
   let users = `CREATE TABLE IF NOT EXISTS users 
