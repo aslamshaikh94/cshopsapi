@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
-
 var userauth = require('./routes/auth');
 var users = require('./routes/users');
 var product = require('./routes/product');
@@ -32,6 +31,18 @@ app.use("/addto", addto);
 app.use("/myprofile", myprofile);
 app.use("/orders", orders);
 app.use("/upload", upload);
+
+
+// error handler middleware
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send({
+    error: {
+      status: error.status || 500,
+      message: error.message || 'Internal Server Error',
+    },
+  });
+});
+
 
 let PORT = process.env.APP_PORT
 app.listen(PORT, ()=>{

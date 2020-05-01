@@ -35,7 +35,7 @@ app.post('/add', ensureToken, (req, res)=>{
         })
 		}
 		else{
-			res.send(result)
+			res.json(result)
 		}
 	})
 });
@@ -66,12 +66,12 @@ app.post('/update', ensureToken, (req, res)=>{
         })
 		}
 		else{
-			res.send(result)
+			res.json(result)
 		}
 	})
 });
 
-app.get('/products', (req, res, next)=>{
+app.get('/', (req, res, next)=>{
 	let sql = `SELECT * FROM products order by created_at desc LIMIT 24`
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
@@ -97,7 +97,6 @@ app.get('/admin/products', ensureToken, (req, res, next)=>{
 	});
 });
 
-
 app.get('/', function (req, res) {
 	let sql = `SELECT * FROM products WHERE ${req.query.field} LIKE '%${req.query.search}%' order by created_at desc`
   connection.query(sql, (err, result, fields)=>{
@@ -122,12 +121,10 @@ app.get('/filters', function (req, res) {
 	});
 });
 
-
-
 app.get('/:id', (req, res, next)=>{	
 	let sql = `SELECT products.id, products.categories, products.created_at, products.details, 
-										products.extra_fields, products.minorder, products.photos, 
-										products.product_name, products.seller_id, products.selling_price, 
+										products.extra_fields, products.minorder, products.photos, products.thumbnail,
+										products.product_name, products.seller_id, products.selling_price, products.venders_price, 
 										products.stock, products.terms_conditions, products.type, 
 										products.warranty, contact_info.phone
 						FROM products 
@@ -137,7 +134,7 @@ app.get('/:id', (req, res, next)=>{
 						
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
-			res.send("Error", err)
+			res.status("Error", err)
 		}
 		else{
 			res.json(result)
@@ -151,12 +148,17 @@ app.delete('/delete/:id', ensureToken, (req, res, next)=>{
 						 AND seller_id =${req.user.id}`
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
-			res.send("Error", err)
+			res.status("Error", err)
 		}
 		else{
 			res.json(result)
 		}
 	});
+});
+
+//The 404 Route (ALWAYS Keep this as the last route)
+app.get('/*', function(req, res){
+  res.send('what???', 404);
 });
 
 module.exports = app;
