@@ -44,7 +44,7 @@ app.use((error, req, res, next) => {
 });
 
 
-let PORT = process.env.APP_PORT
+let PORT = process.env.APP_PORT || 5000
 app.listen(PORT, ()=>{
   console.log("server is runing " + PORT)
 });

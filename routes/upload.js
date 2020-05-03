@@ -16,7 +16,7 @@ app.use(express.json({ limit: '10mb' }))
 app.post('/', async (req, res)=>{
 	let result = await cloudinary.v2.uploader.upload(req.body.image, {format: "jpeg"});	
 	try{
-		res.json(result.secure_url)
+		res.json({url:result.secure_url, id:result.public_id})
 	}
 	catch(err){
 		res.json({
@@ -25,6 +25,13 @@ app.post('/', async (req, res)=>{
     })
 	}
 })
+
+app.get('/', (req, res)=>{
+	cloudinary.v2.api.resources({ type: 'upload', max_results: 200 }, function(error, result) {
+	  res.json(result.resources)
+	});
+})
+
 
 
 module.exports = app
