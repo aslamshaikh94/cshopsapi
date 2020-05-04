@@ -4,12 +4,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(function(req, res, next) {
-    res.setHeader('Allow', "*")
-    res.setHeader('Connection', "keep-alive")
-    res.setHeader("Date", Date())
-    res.setHeader("Content-Type", "application/json; charset=utf-8")
     res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Credentials', 'true');
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, auth-token");
     next();
