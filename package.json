@@ -27,5 +27,8 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/username/repository.git"
-  }
+  },
+  "optionalDependencies": {
+    "fsevents": "^1.1.2"
+  },
 }
