@@ -2,7 +2,6 @@ let express = require('express');
 let connection = require('../config/database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const exjwt = require('express-jwt');
 require('dotenv').config();
 let SECRETKEY = process.env.SECRET_KEY
 
