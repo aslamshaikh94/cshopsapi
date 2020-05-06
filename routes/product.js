@@ -40,7 +40,7 @@ app.post('/add', ensureToken, (req, res)=>{
 	})
 });
 
-app.put('/update', ensureToken, (req, res)=>{
+app.put('/', ensureToken, (req, res)=>{
 	let product = {
 		categories:req.body.categories,
 		type:req.body.type,
