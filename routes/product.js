@@ -97,7 +97,7 @@ app.get('/admin/products', ensureToken, (req, res, next)=>{
 	});
 });
 
-app.get('/', function (req, res) {
+app.get('/search', function (req, res) {
 	let sql = `SELECT * FROM products WHERE ${req.query.field} LIKE '%${req.query.search}%' order by created_at desc`
   connection.query(sql, (err, result, fields)=>{
 		if(err){
