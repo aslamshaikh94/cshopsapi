@@ -9,10 +9,10 @@ app.use(express.json());
 
 
 app.post('/contact_info', ensureToken, (req, res)=>{
-	let {name, phone, email, pincode, country, state, city, address} = req.body;
+	let {fname, phone, email, pincode, country, state, city, address} = req.body;
 	let contactData = {
 		user_id:req.user.id,
-		fname:name,
+		fname:fname,
 		phone:phone,
 		email:email,
 		pincode:pincode,
@@ -22,6 +22,30 @@ app.post('/contact_info', ensureToken, (req, res)=>{
 		address:address
 	}
 	let sql = `INSERT INTO contact_info SET ?`
+	connection.query(sql, contactData, (err, result, fields)=>{
+		if(err){
+			res.status("Error", err)
+		}
+		else{
+			res.json(result)
+		}
+	})
+})
+
+app.put('/contact_info/:id', ensureToken, (req, res)=>{
+	let {fname, phone, email, pincode, country, state, city, address} = req.body;
+	let contactData = {
+		user_id:req.user.id,
+		fname:fname,
+		phone:phone,
+		email:email,
+		pincode:pincode,
+		countries:country,
+		states:state,
+		cities:city,
+		address:address
+	}	
+	let sql = `UPDATE contact_info SET ? WHERE id=${req.params.id}`
 	connection.query(sql, contactData, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)
