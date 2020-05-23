@@ -144,6 +144,13 @@ app.get('/:id', (req, res, next)=>{
 	});
 });
 
+app.get('/:id/select', (req, res)=>{	
+	let sql = `SELECT ${req.query.seokey} FROM products WHERE id=${req.params.id}`;
+	connection.query(sql, (err, result, fields)=>{
+		res.json(result[0])
+	})
+})
+
 app.delete('/delete/:id', ensureToken, (req, res, next)=>{
 	let sql = `DELETE FROM products 
 						 WHERE id =${req.params.id} 
