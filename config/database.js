@@ -88,6 +88,14 @@ connection.connect(function(err) {
     console.log("Products Table created");
   });
 
+  // Create column for Products
+  // let altproducts = `ALTER TABLE products ADD COLUMN keywords LONGTEXT AFTER details`;
+  // connection.query(altproducts, function (err, result) {
+  //   if (err) throw err;
+  //   console.log("Products Table created");
+  // });
+  
+
   // Create column for enquiries
   let enquiries = `CREATE TABLE IF NOT EXISTS enquiries 
                    (id INT AUTO_INCREMENT PRIMARY KEY, 
