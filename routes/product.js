@@ -12,6 +12,7 @@ app.post('/add', ensureToken, (req, res)=>{
 		seller_id:req.user.id,
 		categories:req.body.categories,
 		type:req.body.type,
+		brand_name:req.body.brand_name,	
 		product_name:req.body.product_name,	
 		purchase_price:req.body.purchase_price,
 		selling_price:req.body.selling_price,
@@ -45,6 +46,7 @@ app.put('/', ensureToken, (req, res)=>{
 	let product = {
 		categories:req.body.categories,
 		type:req.body.type,
+		brand_name:req.body.brand_name,	
 		product_name:req.body.product_name,	
 		purchase_price:req.body.purchase_price,
 		selling_price:req.body.selling_price,
@@ -123,10 +125,10 @@ app.get('/filters', function (req, res) {
 	});
 });
 
-app.get('/:id', (req, res, next)=>{	
+app.get('/:id', (req, res, next)=>{
 	let sql = `SELECT products.id, products.categories, products.created_at, products.details, 
 										products.extra_fields, products.minorder, products.photos, products.thumbnail,
-										products.product_name, products.seller_id, products.selling_price, products.venders_price, 
+										products.product_name, products.brand_name, products.seller_id, products.selling_price, products.venders_price, 
 										products.stock, products.terms_conditions, products.type, 
 										products.warranty, contact_info.phone
 						FROM products 

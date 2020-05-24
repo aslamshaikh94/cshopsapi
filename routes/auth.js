@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const FacebookTokenStrategy = require('passport-facebook-token');
+const GoogleTokenStrategy = require('passport-google-token');
+
+
 const passport = require("passport");
 
 require('dotenv').config();
@@ -144,6 +147,24 @@ app.post('/facebook', function(req, res, next) {
         next()
     })(req, res, next);
 });
+
+
+
+// passport.use(new GoogleTokenStrategy({
+//     clientID: process.env.GOOGLE_CLIENT_ID,
+//     clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       return done(err, user);
+//     });
+//   }
+// ));
+
+// app.get('/auth/google/token', passport.authenticate('google-token'),
+//  function(req, res) {
+//   res.send(req.user);
+// });
 
 
 module.exports = app;

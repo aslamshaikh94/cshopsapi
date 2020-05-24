@@ -70,6 +70,7 @@ connection.connect(function(err) {
                    seller_id INT(255),
                    categories VARCHAR(255),
                    type VARCHAR(255),
+                   brand_name VARCHAR(255),
                    product_name VARCHAR(255),
                    purchase_price INT(255),
                    selling_price INT(255),
@@ -89,7 +90,7 @@ connection.connect(function(err) {
   });
 
   // Create column for Products
-  // let altproducts = `ALTER TABLE products ADD COLUMN keywords LONGTEXT AFTER details`;
+  // let altproducts = `ALTER TABLE products ADD COLUMN brand_name VARCHAR(255) AFTER type`;
   // connection.query(altproducts, function (err, result) {
   //   if (err) throw err;
   //   console.log("Products Table created");
