@@ -3,11 +3,17 @@ const path = require("path");
 let app = express();
 let connection = require('../config/database');
 const ensureToken = require('../middleware/auth');
+const urlSlug = require('url-slug');
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json({ limit: '10mb' }));
 
-app.post('/add', ensureToken, (req, res)=>{		
+const urlSlugInstance = new urlSlug.UrlSlug('-', urlSlug.transformers.toLowerCase)
+ 
+	
+
+app.post('/add', ensureToken, (req, res)=>{
+	let slugurl = urlSlugInstance.convert(req.body.product_name)
 	let product = {
 		seller_id:req.user.id,
 		categories:req.body.categories,
@@ -29,20 +35,24 @@ app.post('/add', ensureToken, (req, res)=>{
 	}
 	
 	let sql = 'INSERT INTO products SET ?'
-	connection.query(sql, product, (err, result, fields)=>{		
-		if(err){
-			res.json({
-            status:false,
-            message:'there are some server error'
-        })
-		}
-		else{
-			res.json(result)
-		}
+	connection.query(`SELECT * FROM products WHERE product_name='${slugurl}' `, (err, result, fields)=>{
+		let slugname = result.length>0? slugurl+'-'+Number(result.length+1) : slugurl;
+		connection.query(sql, {...product, slugs:slugname}, (err, result, fields)=>{		
+			if(err){
+				res.json({
+	            status:false,
+	            message:'there are some server error'
+	        })
+			}
+			else{
+				res.json(result)
+			}
+		})		
 	})
 });
 
 app.put('/', ensureToken, (req, res)=>{
+	let slugurl = urlSlugInstance.convert(req.body.product_name)
 	let product = {
 		categories:req.body.categories,
 		type:req.body.type,
@@ -62,16 +72,19 @@ app.put('/', ensureToken, (req, res)=>{
 		thumbnail:req.body.thumbnail,
 	}
 	let sql = `UPDATE products SET ? WHERE id=${req.body.id}`
-	connection.query(sql, product, (err, result, fields)=>{
-		if(err){
-			res.json({
-            status:false,
-            message:'there are some server error'
-        })
-		}
-		else{
-			res.json(result)
-		}
+	connection.query(`SELECT * FROM products WHERE product_name='${slugurl}' `, (err, result, fields)=>{		
+		let slugname = result.length>=1? slugurl+'-'+Number(result.length+1) : slugurl;
+		connection.query(sql, {...product, slugs:slugname}, (err, result, fields)=>{		
+			if(err){
+				res.json({
+	            status:false,
+	            message:'there are some server error'
+	        })
+			}
+			else{
+				res.json(result)
+			}
+		})		
 	})
 });
 
@@ -125,7 +138,7 @@ app.get('/filters', function (req, res) {
 	});
 });
 
-app.get('/:id', (req, res, next)=>{
+app.get('/:id', (req, res, next)=>{		
 	let sql = `SELECT products.id, products.categories, products.created_at, products.details, 
 										products.extra_fields, products.minorder, products.photos, products.thumbnail,
 										products.product_name, products.brand_name, products.seller_id, products.selling_price, products.venders_price, 
@@ -133,7 +146,7 @@ app.get('/:id', (req, res, next)=>{
 										products.warranty, contact_info.phone
 						FROM products 
 						INNER JOIN contact_info ON products.seller_id=contact_info.user_id
-						WHERE products.id=${req.params.id}
+						WHERE products.slugs='${req.params.id}'
 						 `
 						
 	connection.query(sql, (err, result, fields)=>{

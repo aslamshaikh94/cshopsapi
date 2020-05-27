@@ -90,7 +90,7 @@ connection.connect(function(err) {
   });
 
   // Create column for Products
-  // let altproducts = `ALTER TABLE products ADD COLUMN brand_name VARCHAR(255) AFTER type`;
+  // let altproducts = `ALTER TABLE products ADD COLUMN slugs VARCHAR(255) AFTER id`;
   // connection.query(altproducts, function (err, result) {
   //   if (err) throw err;
   //   console.log("Products Table created");
