@@ -160,8 +160,9 @@ app.get('/:id', (req, res, next)=>{
 });
 
 app.get('/:id/select', (req, res)=>{	
-	let sql = `SELECT ${req.query.seokey} FROM products WHERE id=${req.params.id}`;
-	connection.query(sql, (err, result, fields)=>{
+	let sql = `SELECT ${req.query.seokey} FROM products WHERE slugs='${req.params.id}'`;
+	connection.query(sql, (err, result, fields)=>{	
+		if(err) return res.status(false)
 		res.json(result[0])
 	})
 })
