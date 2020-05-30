@@ -4,7 +4,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://cshops.in");
+    res.header("Access-Control-Allow-Origin", "https://cshops.in");
     res.header('Access-Control-Allow-Credentials', true);
     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, auth-token");
@@ -45,7 +45,7 @@ app.use((error, req, res, next) => {
 });
 
 
-let PORT = process.env.APP_PORT || 5030
+let PORT = process.env.APP_PORT || 8850
 app.listen(PORT, ()=>{
   console.log("server is runing " + PORT)
 });
