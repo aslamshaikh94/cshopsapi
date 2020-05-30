@@ -100,6 +100,24 @@ app.get('/', (req, res, next)=>{
 	});
 });
 
+app.get('/select', (req, res, next)=>{
+	let sql = `SELECT ${req.query.seokey} FROM products order by created_at desc LIMIT 24`
+	connection.query(sql, (err, result, fields)=>{
+		if(err){
+			res.status("Error", err)
+		}
+		else{
+			res.json(result)
+		}
+	});
+});
+// app.get('/:id/select', (req, res)=>{	
+// 	let sql = `SELECT ${req.query.seokey} FROM products WHERE slugs='${req.params.id}'`;
+// 	connection.query(sql, (err, result, fields)=>{	
+// 		if(err) return res.status(false)
+// 		res.json(result[0])
+// 	})
+// })
 
 
 app.get('/admin/products', ensureToken, (req, res, next)=>{	
