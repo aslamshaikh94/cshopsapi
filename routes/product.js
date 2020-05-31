@@ -101,7 +101,7 @@ app.get('/', (req, res, next)=>{
 });
 
 app.get('/select', (req, res, next)=>{
-	let sql = `SELECT ${req.query.seokey} FROM products order by created_at desc LIMIT 24`
+	let sql = `SELECT ${req.query.colnames} FROM products order by created_at desc LIMIT 24`
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
 			res.status("Error", err)
