@@ -100,7 +100,7 @@ app.get('/', (req, res, next)=>{
 	});
 });
 
-app.get('/select', (req, res, next)=>{
+app.get('/select', (req, res, next)=>{	
 	let sql = `SELECT ${req.query.colnames} FROM products order by created_at desc LIMIT 24`
 	connection.query(sql, (err, result, fields)=>{
 		if(err){
@@ -111,14 +111,14 @@ app.get('/select', (req, res, next)=>{
 		}
 	});
 });
-// app.get('/:id/select', (req, res)=>{	
-// 	let sql = `SELECT ${req.query.seokey} FROM products WHERE slugs='${req.params.id}'`;
-// 	connection.query(sql, (err, result, fields)=>{	
-// 		if(err) return res.status(false)
-// 		res.json(result[0])
-// 	})
-// })
 
+app.get('/:id/select', (req, res)=>{
+	let sql = `SELECT ${req.query.colnames} FROM products WHERE slugs='${req.params.id}'`;
+	connection.query(sql, (err, result, fields)=>{	
+		if(err) return res.status(false)
+		res.json(result[0])
+	})
+})
 
 app.get('/admin/products', ensureToken, (req, res, next)=>{	
 	let sql =`SELECT * FROM products WHERE seller_id ='${req.user.id}' order by created_at desc`
@@ -177,13 +177,6 @@ app.get('/:id', (req, res, next)=>{
 	});
 });
 
-app.get('/:id/select', (req, res)=>{	
-	let sql = `SELECT ${req.query.seokey} FROM products WHERE slugs='${req.params.id}'`;
-	connection.query(sql, (err, result, fields)=>{	
-		if(err) return res.status(false)
-		res.json(result[0])
-	})
-})
 
 app.delete('/delete/:id', ensureToken, (req, res, next)=>{
 	let sql = `DELETE FROM products 
